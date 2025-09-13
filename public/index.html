@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detective Blog</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>🕵️ Sherlock's Blog</h1>
+    <p>A place for mysterious thoughts and hidden stories...</p>
+  </header>
+
+  <!-- AUTH SECTION -->
+  <section id="auth-section">
+    <div class="auth-container">
+      <div class="auth-form">
+        <h2>Register</h2>
+        <form id="register-form">
+          <input type="text" id="reg-username" placeholder="Username" required>
+          <input type="email" id="reg-email" placeholder="Email" required>
+          <input type="password" id="reg-password" placeholder="Password" required>
+          <button type="submit">Register</button>
+        </form>
+      </div>
+
+      <div class="auth-form">
+        <h2>Login</h2>
+        <form id="login-form">
+          <input type="email" id="login-email" placeholder="Email" required>
+          <input type="password" id="login-password" placeholder="Password" required>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- POSTS SECTION -->
+  <section id="post-container" style="display: none;">
+    <h2>Case Notes</h2>
+    <form id="post-form">
+      <input type="text" id="post-title" placeholder="Post Title" required>
+      <textarea id="post-content" placeholder="Your investigation notes..." required></textarea>
+      <button type="submit">Save Post</button>
+    </form>
+    <div id="posts-list"></div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
