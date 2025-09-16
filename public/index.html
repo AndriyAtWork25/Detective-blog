@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Detective Blog</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -16,7 +17,7 @@
   <!-- AUTH SECTION -->
   <section id="auth-section">
     <div class="auth-container">
-      <div class="auth-form">
+      <div id="register-box" class="auth-form">
         <h2>Register</h2>
         <form id="register-form">
           <input type="text" id="reg-username" placeholder="Username" required>
@@ -26,7 +27,7 @@
         </form>
       </div>
 
-      <div class="auth-form">
+      <div id="login-box" class="auth-form">
         <h2>Login</h2>
         <form id="login-form">
           <input type="email" id="login-email" placeholder="Email" required>

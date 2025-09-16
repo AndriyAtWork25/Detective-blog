@@ -4,6 +4,8 @@ const loginForm = document.getElementById("login-form");
 const postContainer = document.getElementById("post-container");
 const postForm = document.getElementById("post-form");
 const postsList = document.getElementById("posts-list");
+const authSection = document.getElementById("auth-section");
+
 
 let token = "";
 let editingPostId = null;
@@ -24,6 +26,9 @@ registerForm.addEventListener("submit", async (e) => {
 
     const data = await res.json();
     alert(data.message);
+    document.getElementById("register-form").reset();
+    document.getElementById("register-box").classList.add("hidden");
+    document.getElementById("login-box").classList.remove("hidden");
   } catch (err) {
     console.error(err);
     alert("Error registering user");
@@ -45,10 +50,12 @@ loginForm.addEventListener("submit", async (e) => {
 
     const data = await res.json();
     if (res.ok) {
-      token = data.token;
-      alert(data.message);
-      postContainer.style.display = "block";
-      loadPosts();
+     token = data.token;
+     alert(data.message);
+     authSection.style.display = "none";   // ховаємо register/login
+     postContainer.style.display = "block"; // показуємо пости
+     loadPosts();
+
     } else {
       alert(data.message);
     }
