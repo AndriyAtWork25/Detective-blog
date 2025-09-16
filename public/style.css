@@ -68,16 +68,20 @@ header p {
 }
 
 .auth-form input {
+  display: block;
   width: 100%;
+  max-width: 320px; 
   padding: 12px;
-  margin: 10px 0;
+  margin: 10px auto;
   border: 1px solid #a1866f;
   border-radius: 6px;
   background: #efe6d9;
   color: #3e2f23;
   font-size: 16px;
   transition: 0.3s;
+  box-sizing: border-box; 
 }
+
 
 .auth-form input:focus {
   border-color: #5c3a21;
@@ -121,4 +125,160 @@ header p {
   text-shadow: 1px 1px 0 #e0d2a0;
   border-bottom: 1px dashed #a1887f;
   padding-bottom: 6px;
+}
+
+/* --- Сховати секції при логіні --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Modern Post Buttons --- */
+.post-card .edit-btn,
+.post-card .delete-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #5c3a21;
+  color: #f5f1e1;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  font-size: 0.9rem;
+}
+
+.post-card .edit-btn:hover {
+  background: #7a5e3f;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
+}
+
+.post-card .delete-btn {
+  background: #8b1a1a;
+}
+
+.post-card .delete-btn:hover {
+  background: #c33a3a;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
+}
+
+/* Optional: маленькі іконки всередині кнопок */
+.post-card button i {
+  font-size: 1rem;
+}
+/* --- Post Form Fields --- */
+#post-form input,
+#post-form textarea {
+  width: 100%;
+  max-width: 600px;
+  padding: 12px 14px;
+  margin: 10px auto;
+  display: block;
+  border: 1px solid #a1866f;
+  border-radius: 8px;
+  background: #f4ece1;
+  color: #3e2f23;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  transition: 0.3s;
+  box-sizing: border-box;
+}
+
+#post-form input:focus,
+#post-form textarea:focus {
+  border-color: #5c3a21;
+  box-shadow: 0 0 8px rgba(92, 58, 33, 0.5);
+  outline: none;
+}
+
+/* Збільшуємо textarea для заметок */
+#post-form textarea {
+  min-height: 150px;
+  resize: vertical; /* користувач може змінювати висоту */
+}
+
+/* --- Post Form Button --- */
+#post-form button {
+  background: #5c3a21;
+  color: #f5f1e1;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 12px;
+  transition: 0.3s;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#post-form button:hover {
+  background: #8b6f47;
+  transform: translateY(-2px);
+}
+#post-container h2 {
+  text-align: center;      /* центруємо заголовок */
+  font-weight: 700;        /* робимо жирним */
+  font-size: 2rem;         /* можна трохи збільшити */
+  margin-bottom: 20px;     /* відступ від форми */
+  color: #3e2723;          /* колір під стиль сторінки */
+  text-shadow: 1px 1px 0 #e0d2a0; /* легка тінь для вінтажного ефекту */
+}
+/* --- Пост форма --- */
+#post-form input,
+#post-form textarea {
+  width: 100%;
+  max-width: 500px;
+  margin: 10px auto;
+  padding: 12px;
+  border: 1px solid #a1866f;
+  border-radius: 8px;
+  background: #f4ece1;
+  color: #3e2f23;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  box-sizing: border-box;
+  display: block;
+  transition: 0.3s;
+}
+
+#post-form input:focus,
+#post-form textarea:focus {
+  border-color: #5c3a21;
+  box-shadow: 0 0 5px rgba(92, 58, 33, 0.5);
+  outline: none;
+}
+
+/* textarea більше за висотою для нотаток */
+#post-form textarea {
+  min-height: 150px;
+  resize: vertical; /* можна змінювати висоту, але не ширину */
+}
+
+/* кнопка Save Post */
+#post-form button {
+  background: #5c3a21;
+  color: #f5f1e1;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: 0.3s;
+}
+
+#post-form button:hover {
+  background: #8b6f47;
+  transform: translateY(-2px);
 }
