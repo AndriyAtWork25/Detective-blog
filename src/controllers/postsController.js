@@ -4,11 +4,12 @@ import Post from "../models/Post.js";
 // Create a new post
 export const createPost = async (req, res) => {
   try {
-    const { title, content } = req.body;
+    const { title, content, category } = req.body;
 
     const newPost = await Post.create({
       title,
       content,
+      category,
       author: req.user.id,
     });
 
@@ -43,11 +44,11 @@ export const getPostById = async (req, res) => {
 // Update a post
 export const updatePost = async (req, res) => {
   try {
-    const { title, content } = req.body;
+    const { title, content, category } = req.body;
 
     const post = await Post.findOneAndUpdate(
       { _id: req.params.id, author: req.user.id },
-      { title, content },
+      { title, content, category },
       { new: true }
     );
 

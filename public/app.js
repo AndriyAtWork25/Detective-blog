@@ -70,6 +70,7 @@ postForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const title = document.getElementById("post-title").value;
   const content = document.getElementById("post-content").value;
+  const category = document.getElementById("post-category").value;
 
   try {
     let url = "http://localhost:5000/api/posts";
@@ -86,7 +87,7 @@ postForm.addEventListener("submit", async (e) => {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       },
-      body: JSON.stringify({ title, content })
+      body: JSON.stringify({ title, content, category })
     });
 
     const data = await res.json();
@@ -117,16 +118,18 @@ async function loadPosts() {
   const div = document.createElement("div");
   div.className = "post-card"; // <--- оце додаємо
   div.innerHTML = `
-    <h3>${post.title}</h3>
-    <p>${post.content}</p>
-    <p><i>Author: ${post.author.username}</i></p>
-    <button class="edit-btn" onclick="editPost('${post._id}')">
-      <i class="fa-solid fa-magnifying-glass"></i> Edit
-    </button>
-    <button class="delete-btn" onclick="deletePost('${post._id}')">
-      <i class="fa-solid fa-trash"></i> Delete
-    </button>
-  `;
+  <h3>${post.title}</h3>
+  <p>${post.content}</p>
+  <p><strong>Category:</strong> ${post.category}</p>
+  <p><i>Author: ${post.author.username}</i></p>
+  <button class="edit-btn" onclick="editPost('${post._id}')">
+    <i class="fa-solid fa-magnifying-glass"></i> Edit
+  </button>
+  <button class="delete-btn" onclick="deletePost('${post._id}')">
+    <i class="fa-solid fa-trash"></i> Delete
+  </button>
+`;
+
   postsList.appendChild(div);
 });
 
@@ -148,6 +151,8 @@ window.editPost = async (id) => {
     if (res.ok || res.status === 200) {
       document.getElementById("post-title").value = post.title;
       document.getElementById("post-content").value = post.content;
+      document.getElementById("post-category").value = post.category;
+
       editingPostId = id;
     } else {
       alert(post.message);

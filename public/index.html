@@ -43,6 +43,22 @@
     <h2>Case Notes</h2>
     <input type="text" id="search-bar" placeholder="🔍 Search posts...">
     <form id="post-form">
+<div class="category-container">
+  <h3 id="category-label">Category</h3>
+  <select id="post-category" required>
+    <option value="">Select a category</option>
+    <option value="Murder">Murder</option>
+    <option value="Mystical Stories">Mystical Stories</option>
+    <option value="Paranormal Phenomena">Paranormal Phenomena</option>
+    <option value="Abductions">Abductions</option>
+    <option value="Robberies">Robberies</option>
+    <option value="Criminal Conspiracies">Criminal Conspiracies</option>
+    <option value="Investigations">Investigations</option>
+    <option value="Other">Other</option>
+  </select>
+</div>
+
+
       <input type="text" id="post-title" placeholder="Post Title" required>
       <textarea id="post-content" placeholder="Your investigation notes..." required></textarea>
       <button type="submit">Save Post</button>
