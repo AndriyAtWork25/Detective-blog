@@ -282,3 +282,22 @@ header p {
   background: #8b6f47;
   transform: translateY(-2px);
 }
+
+#search-bar {
+  width: 100%;
+  max-width: 500px;
+  padding: 10px 15px;
+  margin: 15px auto;
+  display: block;
+  border: 2px solid #5c4033; /* коричневий в стилі вінтаж */
+  border-radius: 8px;
+  background-color: #fdf6ec;
+  font-size: 16px;
+  font-family: 'Georgia', serif;
+}
+
+#search-bar:focus {
+  outline: none;
+  border-color: #3e2c23;
+  box-shadow: 0 0 8px rgba(60, 42, 33, 0.6);
+}
