@@ -179,3 +179,25 @@ window.deletePost = async (id) => {
     alert("Error deleting post");
   }
 };
+
+// --------------------- SEARCH POSTS ---------------------
+const searchBar = document.getElementById("search-bar");
+
+if (searchBar) {
+  searchBar.addEventListener("input", () => {
+    const query = searchBar.value.toLowerCase();
+    const posts = document.querySelectorAll(".post-card");
+
+    posts.forEach(post => {
+      const title = post.querySelector("h3").innerText.toLowerCase();
+      const content = post.querySelector("p").innerText.toLowerCase();
+
+      if (title.includes(query) || content.includes(query)) {
+        post.style.display = "block";
+      } else {
+        post.style.display = "none";
+      }
+    });
+  });
+}
+
