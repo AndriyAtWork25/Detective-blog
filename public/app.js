@@ -105,6 +105,21 @@ postForm.addEventListener("submit", async (e) => {
   }
 });
 
+
+// --------------------- SWITCH BETWEEN FORMS ---------------------
+document.getElementById("show-login").addEventListener("click", (e) => {
+  e.preventDefault();
+  document.getElementById("register-box").classList.add("hidden");
+  document.getElementById("login-box").classList.remove("hidden");
+});
+
+document.getElementById("show-register").addEventListener("click", (e) => {
+  e.preventDefault();
+  document.getElementById("login-box").classList.add("hidden");
+  document.getElementById("register-box").classList.remove("hidden");
+});
+
+
 // --------------------- LOAD ALL POSTS ---------------------
 async function loadPosts() {
   postsList.innerHTML = "";
