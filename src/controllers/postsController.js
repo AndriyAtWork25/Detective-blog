@@ -10,11 +10,18 @@ export const createPost = async (req, res) => {
       title,
       content,
       category,
-      author: req.user.id,
+      author: req.user._id, // <-- виправлено
     });
 
-    res.status(201).json(newPost);
+    res.status(201).json({
+      _id: newPost._id,
+      title: newPost.title,
+      content: newPost.content,
+      category: newPost.category,
+      author: newPost.author,
+    });
   } catch (error) {
+    console.error("Create post error:", error);
     res.status(500).json({ message: "Error creating post", error });
   }
 };
@@ -25,6 +32,7 @@ export const getAllPosts = async (req, res) => {
     const posts = await Post.find().populate("author", "username email");
     res.json(posts);
   } catch (error) {
+    console.error("Get all posts error:", error);
     res.status(500).json({ message: "Error fetching posts", error });
   }
 };
@@ -32,11 +40,15 @@ export const getAllPosts = async (req, res) => {
 // Get a single post by ID
 export const getPostById = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id).populate("author", "username email");
+    const post = await Post.findById(req.params.id).populate(
+      "author",
+      "username email"
+    );
     if (!post) return res.status(404).json({ message: "Post not found" });
 
     res.json(post);
   } catch (error) {
+    console.error("Get post error:", error);
     res.status(500).json({ message: "Error fetching post", error });
   }
 };
@@ -47,15 +59,19 @@ export const updatePost = async (req, res) => {
     const { title, content, category } = req.body;
 
     const post = await Post.findOneAndUpdate(
-      { _id: req.params.id, author: req.user.id },
+      { _id: req.params.id, author: req.user._id }, // <-- виправлено
       { title, content, category },
       { new: true }
     );
 
-    if (!post) return res.status(404).json({ message: "Post not found or user not authorized" });
+    if (!post)
+      return res
+        .status(404)
+        .json({ message: "Post not found or user not authorized" });
 
     res.json(post);
   } catch (error) {
+    console.error("Update post error:", error);
     res.status(500).json({ message: "Error updating post", error });
   }
 };
@@ -63,12 +79,19 @@ export const updatePost = async (req, res) => {
 // Delete a post
 export const deletePost = async (req, res) => {
   try {
-    const post = await Post.findOneAndDelete({ _id: req.params.id, author: req.user.id });
+    const post = await Post.findOneAndDelete({
+      _id: req.params.id,
+      author: req.user._id, // <-- виправлено
+    });
 
-    if (!post) return res.status(404).json({ message: "Post not found or user not authorized" });
+    if (!post)
+      return res
+        .status(404)
+        .json({ message: "Post not found or user not authorized" });
 
     res.json({ message: "Post deleted successfully" });
   } catch (error) {
+    console.error("Delete post error:", error);
     res.status(500).json({ message: "Error deleting post", error });
   }
 };
