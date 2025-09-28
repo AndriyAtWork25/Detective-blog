@@ -6,7 +6,7 @@
   <title>Detective Blog</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="app.js" defer></script>
+  <script src="./app.js" defer></script>
 </head>
 <body>
   <header>
@@ -21,10 +21,17 @@
         <h2>Register</h2>
         <form id="register-form">
           <input type="text" id="reg-username" placeholder="Username" required>
+          <span class="error" id="reg-username-error"></span>
+
           <input type="email" id="reg-email" placeholder="Email" required>
+          <span class="error" id="reg-email-error"></span>
+
           <input type="password" id="reg-password" placeholder="Password" required>
+          <span class="error" id="reg-password-error"></span>
+
           <button type="submit">Register</button>
         </form>
+        <div class="error" id="register-error"></div>
          <p class="switch-form">Already have an account? <a href="#" id="show-login">Login</a></p>
       </div>
 
@@ -32,9 +39,13 @@
         <h2>Login</h2>
         <form id="login-form">
           <input type="email" id="login-email" placeholder="Email" required>
+          <span class="error" id="login-email-error"></span>
+
           <input type="password" id="login-password" placeholder="Password" required>
+          <span class="error" id="login-password-error"></span>
           <button type="submit">Login</button>
         </form>
+        <div class="error" id="login-error"></div>
         <p class="switch-form">Don’t have an account? <a href="#" id="show-register">Register</a></p>
       </div>
     </div>
@@ -60,14 +71,16 @@
   </select>
 </div>
 
-
+      <span class="error" id="post-category-error"></span>
       <input type="text" id="post-title" placeholder="Post Title" required>
+      <span class="error" id="post-title-error"></span>
       <textarea id="post-content" placeholder="Your investigation notes..." required></textarea>
+      <span class="error" id="post-content-error"></span>
       <button type="submit">Save Post</button>
     </form>
+    <div class="error" id="post-error"></div>
     <div id="posts-list"></div>
   </section>
 
-  <script src="app.js"></script>
 </body>
 </html>
