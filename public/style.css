@@ -422,3 +422,13 @@ header p {
     max-width: 100%;
   }
 }
+
+.error {
+  color: red;
+  font-size: 18px;   /* робимо більший текст */
+  font-weight: bold;
+  display: block;
+  text-align: center; /* по центру */
+  margin-top: 5px;
+}
+

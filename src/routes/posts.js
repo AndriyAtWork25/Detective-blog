@@ -8,6 +8,7 @@ import {
   deletePost,
 } from "../controllers/postsController.js"; // назва контролера має бути точно як файл
 import { authMiddleware } from "../middleware/authMiddleware.js"; // named export
+import { validatePost } from "../validators/postValidators.js";
 
 const router = express.Router();
 
@@ -16,8 +17,8 @@ router.get("/", getAllPosts);
 router.get("/:id", getPostById);
 
 // Protected routes
-router.post("/", authMiddleware, createPost);
-router.put("/:id", authMiddleware, updatePost);
-router.delete("/:id", authMiddleware, deletePost);
+router.post("/", authMiddleware, validatePost, createPost);
+router.put("/:id", authMiddleware, validatePost, updatePost);
+router.delete("/:id", authMiddleware, validatePost, deletePost);
 
 export default router;
