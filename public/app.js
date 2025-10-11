@@ -133,8 +133,13 @@ if (registerForm) {
 
       if (res.ok) {
         // success: clear form and switch to login
-        if (registerGeneralErrEl) registerGeneralErrEl.textContent = "";
-        registerForm.reset();
+       if (registerGeneralErrEl) {
+           registerGeneralErrEl.textContent = "Registration successful! Please check your email to verify your account.";
+           registerGeneralErrEl.style.color = "green";
+           registerGeneralErrEl.style.display = "block";
+      }
+           registerForm.reset();
+        // НЕ одразу логін, бо треба підтвердити email
         document.getElementById("register-box").classList.add("hidden");
         document.getElementById("login-box").classList.remove("hidden");
       } else {
@@ -189,15 +194,59 @@ if (loginForm) {
         if (res.status === 400 && data.errors) {
           renderFieldErrors(data.errors, "login-");
         } else {
-          if (loginGeneralErrEl) loginGeneralErrEl.textContent = data.message || "Login failed";
+          if (loginGeneralErrEl) {
+            if (data.message === "Please verify your email first") {
+              loginGeneralErrEl.textContent =
+                "Please verify your email via the link sent to your email address.";
+              loginGeneralErrEl.style.display = "block";
+
+              // Показуємо кнопку для повторної відправки
+              const resendSection = document.getElementById("resend-verification");
+              if (resendSection) resendSection.classList.remove("hidden");
+
+            } else {
+              loginGeneralErrEl.textContent = data.message || "Login failed";
+              loginGeneralErrEl.style.display = "block";
+            }
+          }
         }
       }
     } catch (err) {
       console.error(err);
-      if (loginGeneralErrEl) loginGeneralErrEl.textContent = "Error logging in";
+      if (loginGeneralErrEl) {
+        loginGeneralErrEl.textContent = "Error logging in";
+        loginGeneralErrEl.style.display = "block";
+      }
     }
   });
+
+  // --------------------- RESEND VERIFICATION EMAIL ---------------------
+  const resendBtn = document.getElementById("resend-email-btn");
+  if (resendBtn) {
+    resendBtn.addEventListener("click", async () => {
+      const email = document.getElementById("login-email").value;
+      if (!email) {
+        alert("Please enter your email first");
+        return;
+      }
+
+      try {
+        const res = await fetch("/api/auth/resend-verification", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+
+        const data = await res.json();
+        alert(data.message);
+      } catch (err) {
+        console.error(err);
+        alert("Error sending verification email");
+      }
+    });
+  }
 }
+
 
 // --------------------- CREATE / UPDATE POST ---------------------
 if (postForm) {
@@ -398,5 +447,32 @@ function escapeHtml(str = "") {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
 }
+
+// --------------------- VERIFY EMAIL HANDLER ---------------------
+async function handleEmailVerification() {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("token");
+  if (!token) return;
+
+  try {
+    const res = await fetch(`/api/auth/verify-email?token=${token}`);
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("Email verified successfully! You can now log in.");
+      // перенаправлення на логін
+      window.location.href = "/"; // або на сторінку логіну, якщо є окрема
+    } else {
+      alert(data.message || "Error verifying email");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Error verifying email");
+  }
+}
+
+// викликаємо при завантаженні сторінки
+window.addEventListener("DOMContentLoaded", handleEmailVerification);
+
 
 

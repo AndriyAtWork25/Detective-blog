@@ -17,7 +17,20 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-}, {timestamps: true});
+  
+  resetPasswordToken: {
+    type: String,
+  },
+  resetPasswordExpires: {
+    type: Date,
+  },
+
+  verificationToken: String,
+  isVerified: {
+    type: Boolean,
+    default: false, // спочатку користувач не підтверджений
+  }
+}, { timestamps: true });
 
 // Export User model
 const User = mongoose.model("User", userSchema);

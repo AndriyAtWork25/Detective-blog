@@ -432,3 +432,19 @@ header p {
   margin-top: 5px;
 }
 
+/* --- General Auth Errors (наприклад, verify email) --- */
+.error-general {
+  color: #c0392b;                /* темно-червоний */
+  background: #fdecea;           /* світло-червоний фон */
+  border: 1px solid #e0b4b4;     /* рамка */
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 15px;
+  margin: 10px auto;
+  border-radius: 6px;
+  max-width: 320px;
+  display: none;                 /* за замовчуванням сховано */
+}
+
+

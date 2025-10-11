@@ -31,7 +31,7 @@
 
           <button type="submit">Register</button>
         </form>
-        <div class="error" id="register-error"></div>
+        <div class="error error-general" id="register-error"></div>
          <p class="switch-form">Already have an account? <a href="#" id="show-login">Login</a></p>
       </div>
 
@@ -45,7 +45,11 @@
           <span class="error" id="login-password-error"></span>
           <button type="submit">Login</button>
         </form>
-        <div class="error" id="login-error"></div>
+        <div class="error error-general" id="login-error"></div>
+        <p id="resend-verification" class="hidden">
+         Didn't receive the email? 
+        <button type="button" id="resend-email-btn">Resend verification email</button>
+        </p>
         <p class="switch-form">Don’t have an account? <a href="#" id="show-register">Register</a></p>
       </div>
     </div>
