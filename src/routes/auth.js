@@ -4,7 +4,9 @@ import {
   registerUser,
   loginUser,
   verifyEmail,
-  resendVerificationEmail, 
+  resendVerificationEmail,
+  refreshToken,
+  logoutUser
 } from "../controllers/authControllers.js";
 import {
   validateRegister,
@@ -24,5 +26,12 @@ router.get("/verify-email", verifyEmail);
 
 // ---------------- RESEND VERIFICATION EMAIL ----------------
 router.post("/resend-verification", resendVerificationEmail); 
+
+// ---------------- REFRESH TOKEN ----------------
+router.post("/refresh-token", refreshToken);
+
+// ---------------- LOGOUT ----------------
+router.post("/logout", logoutUser);
+
 
 export default router;
