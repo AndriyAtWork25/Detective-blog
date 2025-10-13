@@ -9,9 +9,10 @@ import crypto from "crypto";
 export const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
+    const normalizedEmail = email.toLowerCase();
 
     // Check if user already exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email: normalizedEmail });
     if (existingUser)
       return res.status(400).json({ message: "User already exists" });
 
@@ -21,7 +22,7 @@ export const registerUser = async (req, res) => {
     // Create new user
     const newUser = await User.create({
       username,
-      email,
+      email: normalizedEmail,
       password: hashedPassword,
       isVerified: false,
     });
@@ -57,8 +58,9 @@ export const registerUser = async (req, res) => {
     export const loginUser = async (req, res) => {
       try {
     const { email, password } = req.body;
+    const normalizedEmail = email.toLowerCase();
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: normalizedEmail });
     if (!user)
       return res.status(400).json({ message: "Invalid email or password" });
 
@@ -97,10 +99,11 @@ export const registerUser = async (req, res) => {
 export const resendVerificationEmail = async (req, res) => {
   try {
     const { email } = req.body;
+    const normalizedEmail = email.toLowerCase();
     if (!email) return res.status(400).json({ message: "Email is required" });
 
     // Знайти користувача
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: normalizedEmail });
     if (!user) return res.status(400).json({ message: "User not found" });
 
     // Якщо користувач вже верифікований
