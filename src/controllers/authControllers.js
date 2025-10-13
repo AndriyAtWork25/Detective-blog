@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import { sendVerificationEmail } from "../emails/account.js";
+import crypto from "crypto";
 
 // --------------------- REGISTER ---------------------
 export const registerUser = async (req, res) => {
@@ -52,40 +53,45 @@ export const registerUser = async (req, res) => {
     res.status(500).json({ message: "Error registering user" });
   }
 };
-
 // --------------------- LOGIN ---------------------
-export const loginUser = async (req, res) => {
-  try {
+    export const loginUser = async (req, res) => {
+      try {
     const { email, password } = req.body;
 
-    // Find user by email
     const user = await User.findOne({ email });
     if (!user)
       return res.status(400).json({ message: "Invalid email or password" });
 
-    // Compare password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid)
       return res.status(400).json({ message: "Invalid email or password" });
 
-    // Check if email is verified
     if (!user.isVerified) {
       return res.status(400).json({ message: "Please verify your email first" });
     }
 
-    // Generate JWT for session
-    const token = jwt.sign(
+    // --- Створюємо ACCESS TOKEN ---
+    const accessToken = jwt.sign(
       { _id: user._id, email: user.email },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
 
-    res.json({ token });
+    // --- Створюємо REFRESH TOKEN ---
+    const refreshToken = crypto.randomBytes(40).toString("hex");
+
+    // Додаємо його в масив користувача
+    user.refreshTokens.push(refreshToken);
+    await user.save();
+
+    res.json({ accessToken, refreshToken });
+
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ message: "Error logging in" });
   }
 };
+
 
 // --------------------- RESEND VERIFICATION EMAIL ---------------------
 export const resendVerificationEmail = async (req, res) => {
@@ -199,5 +205,52 @@ export const verifyEmail = async (req, res) => {
         </body>
       </html>
     `);
+  }
+};
+
+// --------------------- REFRESH TOKEN ---------------------
+export const refreshToken = async (req, res) => {
+  try {
+    const { refreshToken } = req.body;
+    if (!refreshToken) return res.status(400).json({ message: "Refresh token required" });
+
+    // Знаходимо користувача, який має цей refresh token
+    const user = await User.findOne({ refreshTokens: refreshToken });
+    if (!user) return res.status(401).json({ message: "Invalid refresh token" });
+
+    // Створюємо новий access token
+    const accessToken = jwt.sign(
+      { _id: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.json({ accessToken });
+
+  } catch (err) {
+    console.error("Refresh token error:", err);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+// --------------------- LOGOUT ---------------------
+export const logoutUser = async (req, res) => {
+  try {
+    const { refreshToken } = req.body; // ми видаляємо саме refresh токен
+
+    if (!refreshToken) return res.status(400).json({ message: "Refresh token required" });
+
+    // Знаходимо користувача, який має цей refresh токен
+    const user = await User.findOne({ refreshTokens: refreshToken });
+    if (!user) return res.status(401).json({ message: "Invalid refresh token" });
+
+    // Видаляємо токен з масиву
+    user.refreshTokens = user.refreshTokens.filter(token => token !== refreshToken);
+    await user.save();
+
+    res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    console.error("Logout error:", error);
+    res.status(500).json({ message: "Logout failed" });
   }
 };

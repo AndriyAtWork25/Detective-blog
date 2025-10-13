@@ -29,7 +29,13 @@ const userSchema = new mongoose.Schema({
   isVerified: {
     type: Boolean,
     default: false, // спочатку користувач не підтверджений
-  }
+  },
+
+  refreshTokens: {
+  type: [String],
+  default: [],
+}
+
 }, { timestamps: true });
 
 // Export User model
