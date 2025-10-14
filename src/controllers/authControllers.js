@@ -79,10 +79,10 @@ export const registerUser = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    // --- Створюємо REFRESH TOKEN ---
+    // Create REFRESH TOKEN 
     const refreshToken = crypto.randomBytes(40).toString("hex");
 
-    // Додаємо його в масив користувача
+    // add refresh token to user's record in DB
     user.refreshTokens.push(refreshToken);
     await user.save();
 
@@ -102,27 +102,27 @@ export const resendVerificationEmail = async (req, res) => {
     const normalizedEmail = email.toLowerCase();
     if (!email) return res.status(400).json({ message: "Email is required" });
 
-    // Знайти користувача
+    // find user by email
     const user = await User.findOne({ email: normalizedEmail });
     if (!user) return res.status(400).json({ message: "User not found" });
 
-    // Якщо користувач вже верифікований
+    // if user already verified
     if (user.isVerified) {
       return res.status(400).json({ message: "Email already verified" });
     }
 
-    // Генеруємо новий токен верифікації
+    // generate new token
     const emailToken = jwt.sign(
       { _id: user._id },
       process.env.JWT_SECRET,
       { expiresIn: "24h" }
     );
 
-    // Зберігаємо токен у базі
+    // save token to DB
     user.verificationToken = emailToken;
     await user.save();
 
-    // Надсилаємо email
+    // send verification email
     await sendVerificationEmail(user.email, emailToken);
 
     res.status(200).json({ message: "Verification email resent successfully" });
@@ -147,10 +147,10 @@ export const verifyEmail = async (req, res) => {
       `);
     }
 
-    // Перевіряємо токен
+    // verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Знаходимо користувача по _id
+    // find user by id from token
     const user = await User.findById(decoded._id);
     if (!user) {
       return res.status(400).send(`
@@ -163,7 +163,7 @@ export const verifyEmail = async (req, res) => {
       `);
     }
 
-    // Якщо вже підтверджений
+    // if already verified
     if (user.isVerified) {
       return res.status(200).send(`
         <html>
@@ -175,15 +175,15 @@ export const verifyEmail = async (req, res) => {
       `);
     }
 
-    // Підтверджуємо email
+    // verify user
     user.isVerified = true;
     user.verificationToken = undefined;
     await user.save();
 
-    // Надсилаємо welcome email після верифікації
+    // Send welcome email after verification
     await sendWelcomeEmail(user.email, user.username);
 
-    // Відправляємо гарне підтвердження замість redirect
+    // send success response
     res.status(200).send(`
       <html>
         <body style="font-family: Arial; text-align: center; padding-top: 50px; background: #f6f9fc;">
@@ -217,11 +217,11 @@ export const refreshToken = async (req, res) => {
     const { refreshToken } = req.body;
     if (!refreshToken) return res.status(400).json({ message: "Refresh token required" });
 
-    // Знаходимо користувача, який має цей refresh token
+    // find user with this refresh token
     const user = await User.findOne({ refreshTokens: refreshToken });
     if (!user) return res.status(401).json({ message: "Invalid refresh token" });
 
-    // Створюємо новий access token
+    // create new access token
     const accessToken = jwt.sign(
       { _id: user._id, email: user.email },
       process.env.JWT_SECRET,
@@ -239,15 +239,15 @@ export const refreshToken = async (req, res) => {
 // --------------------- LOGOUT ---------------------
 export const logoutUser = async (req, res) => {
   try {
-    const { refreshToken } = req.body; // ми видаляємо саме refresh токен
+    const { refreshToken } = req.body; // delete refresh token from body
 
     if (!refreshToken) return res.status(400).json({ message: "Refresh token required" });
 
-    // Знаходимо користувача, який має цей refresh токен
+    // find user with this refresh token
     const user = await User.findOne({ refreshTokens: refreshToken });
     if (!user) return res.status(401).json({ message: "Invalid refresh token" });
 
-    // Видаляємо токен з масиву
+    // delete this refresh token from DB
     user.refreshTokens = user.refreshTokens.filter(token => token !== refreshToken);
     await user.save();
 

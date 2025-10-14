@@ -4,7 +4,7 @@ import { body, validationResult } from "express-validator";
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    // Повертаємо об’єкт { поле: помилка }
+    // Format errors as an object with field names as keys
     const extractedErrors = {};
     errors.array().forEach(err => {
       extractedErrors[err.param] = err.msg;

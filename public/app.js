@@ -77,7 +77,7 @@ function renderFieldErrors(errorsObjOrArray, prefix = "", generalEl = null) {
         el.style.display = "block";
         anyFieldErrorDisplayed = true;
       } else {
-        // якщо елемент не знайдено, показуємо як загальну помилку
+        // if no specific field, show in general
         if (generalEl) {
           generalEl.textContent = errorsObjOrArray[field];
           generalEl.style.display = "block";
@@ -124,7 +124,7 @@ if (registerForm) {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }) // ← тут ще додаємо email
+        body: JSON.stringify({ username, email, password }) 
       });
 
       const data = await res.json();
@@ -139,7 +139,7 @@ if (registerForm) {
            registerGeneralErrEl.style.display = "block";
       }
            registerForm.reset();
-        // НЕ одразу логін, бо треба підтвердити email
+
         document.getElementById("register-box").classList.add("hidden");
         document.getElementById("login-box").classList.remove("hidden");
       } else {
@@ -200,7 +200,7 @@ if (loginForm) {
                 "Please verify your email via the link sent to your email address.";
               loginGeneralErrEl.style.display = "block";
 
-              // Показуємо кнопку для повторної відправки
+              
               const resendSection = document.getElementById("resend-verification");
               if (resendSection) resendSection.classList.remove("hidden");
 
@@ -460,8 +460,8 @@ async function handleEmailVerification() {
 
     if (res.ok) {
       alert("Email verified successfully! You can now log in.");
-      // перенаправлення на логін
-      window.location.href = "/"; // або на сторінку логіну, якщо є окрема
+      // redirect to login or home
+      window.location.href = "/"; 
     } else {
       alert(data.message || "Error verifying email");
     }
@@ -471,7 +471,7 @@ async function handleEmailVerification() {
   }
 }
 
-// викликаємо при завантаженні сторінки
+
 window.addEventListener("DOMContentLoaded", handleEmailVerification);
 
 

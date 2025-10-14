@@ -30,12 +30,12 @@ export const sendVerificationEmail = async (email, token) => {
 
     await sgMail.send({
       to: email,
-      from: 'andriy3388@gmail.com', // обов'язково підтверджений емейл у SendGrid
+      from: 'andriy3388@gmail.com', // verified sender
       subject: 'Please verify your email',
       text: `Hello! Please verify your email by visiting this link: ${verificationUrl}`,
       html: htmlContent,
       mail_settings: {
-        sandbox_mode: { enable: false } // ✅ лист реально відправляється
+        sandbox_mode: { enable: false } // email sedding enabled
       }
     });
 

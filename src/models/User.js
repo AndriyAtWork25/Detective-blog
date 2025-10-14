@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
   verificationToken: String,
   isVerified: {
     type: Boolean,
-    default: false, // спочатку користувач не підтверджений
+    default: false, // first time false
   },
 
   refreshTokens: {

@@ -10,7 +10,7 @@ export const createPost = async (req, res) => {
       title,
       content,
       category,
-      author: req.user._id, // <-- виправлено
+      author: req.user._id, 
     });
 
     res.status(201).json({
@@ -59,7 +59,7 @@ export const updatePost = async (req, res) => {
     const { title, content, category } = req.body;
 
     const post = await Post.findOneAndUpdate(
-      { _id: req.params.id, author: req.user._id }, // <-- виправлено
+      { _id: req.params.id, author: req.user._id },
       { title, content, category },
       { new: true }
     );
@@ -81,7 +81,7 @@ export const deletePost = async (req, res) => {
   try {
     const post = await Post.findOneAndDelete({
       _id: req.params.id,
-      author: req.user._id, // <-- виправлено
+      author: req.user._id, 
     });
 
     if (!post)

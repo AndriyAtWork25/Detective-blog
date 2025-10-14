@@ -1,7 +1,7 @@
 // src/validators/postValidator.js
 import { body, validationResult } from "express-validator";
 
-// Загальна функція для обробки помилок
+// Middleware to handle validation errors
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

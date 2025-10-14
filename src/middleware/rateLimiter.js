@@ -1,10 +1,10 @@
 // src/middleware/rateLimiter.js
 import rateLimit from "express-rate-limit";
 
-// Ліміт для логіну і реєстрації
+// limit for auth routes (login, register)
 export const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 хвилин
-  max: 10, // максимум 10 спроб
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // max 10 tries
   message: {
     success: false,
     message: "Too many attempts, please try again later."

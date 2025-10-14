@@ -1,7 +1,7 @@
 /* --- Google Fonts --- */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap');
 
-/* Загальні стилі */
+/* Main Styles */
 body {
   margin: 0;
   padding: 0;
@@ -11,7 +11,7 @@ body {
   line-height: 1.6;
 }
 
-/* Хедер */
+/* Header */
 header {
   background: #3b2f2f;
   color: #f5f1e1;
@@ -34,12 +34,12 @@ header p {
 /* --- AUTH SECTION --- */
 #auth-section {
   display: flex;
-  justify-content: flex-start;   /* по центру вертикально */
-  align-items: center;       /* по центру горизонтально */
+  justify-content: flex-start;  
+  align-items: center;       
   flex-direction: column;
   gap: 30px;
   padding: 60px 20px 40px 20px;
-  min-height: 100vh;         /* займає всю висоту екрану */
+  min-height: 100vh;       
   box-sizing: border-box;
 }
 
@@ -49,7 +49,7 @@ header p {
 }
 
 
-/* --- Форма --- */
+/* --- Form --- */
 .auth-form {
   background: #f4ece1;
   border: 1px solid #a1866f;
@@ -132,7 +132,7 @@ header p {
   padding-bottom: 6px;
 }
 
-/* --- Сховати секції при логіні --- */
+/* --- hide sections if login --- */
 .hidden {
   display: none !important;
 }
@@ -172,7 +172,7 @@ header p {
   box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
 }
 
-/* Optional: маленькі іконки всередині кнопок */
+
 .post-card button i {
   font-size: 1rem;
 }
@@ -201,10 +201,10 @@ header p {
   outline: none;
 }
 
-/* Збільшуємо textarea для заметок */
+
 #post-form textarea {
   min-height: 150px;
-  resize: vertical; /* користувач може змінювати висоту */
+  resize: vertical; 
 }
 
 /* --- Post Form Button --- */
@@ -228,14 +228,14 @@ header p {
   transform: translateY(-2px);
 }
 #post-container h2 {
-  text-align: center;      /* центруємо заголовок */
-  font-weight: 700;        /* робимо жирним */
-  font-size: 2rem;         /* можна трохи збільшити */
-  margin-bottom: 20px;     /* відступ від форми */
-  color: #3e2723;          /* колір під стиль сторінки */
-  text-shadow: 1px 1px 0 #e0d2a0; /* легка тінь для вінтажного ефекту */
+  text-align: center;     
+  font-weight: 700;       
+  font-size: 2rem;         
+  margin-bottom: 20px;     
+  color: #3e2723;          
+  text-shadow: 1px 1px 0 #e0d2a0; 
 }
-/* --- Пост форма --- */
+/* --- Post form --- */
 #post-form input,
 #post-form textarea {
   width: 100%;
@@ -260,10 +260,10 @@ header p {
   outline: none;
 }
 
-/* textarea більше за висотою для нотаток */
+
 #post-form textarea {
   min-height: 150px;
-  resize: vertical; /* можна змінювати висоту, але не ширину */
+  resize: vertical; 
 }
 
 /* кнопка Save Post */
@@ -294,7 +294,7 @@ header p {
   padding: 10px 15px;
   margin: 15px auto;
   display: block;
-  border: 2px solid #5c4033; /* коричневий в стилі вінтаж */
+  border: 2px solid #5c4033; 
   border-radius: 8px;
   background-color: #fdf6ec;
   font-size: 16px;
@@ -336,9 +336,9 @@ header p {
 }
 
 #category-label {
-  font-size: 1.5rem;   /* трохи менше за Case Notes */
-  font-weight: 700;     /* жирний */
-  color: #5c3a21;      /* коричневий, під стиль блогу */
+  font-size: 1.5rem;   
+  font-weight: 700;    
+  color: #5c3a21;     
   margin-bottom: 10px;
   text-shadow: 1px 1px 0 #e0d2a0;
 }
@@ -390,7 +390,7 @@ header p {
 
 .switch-form {
   margin-top: 10px;
-  font-size: 1.1rem;   /* ↑ було 0.9rem */
+  font-size: 1.1rem;   
   text-align: center;
 }
 
@@ -410,7 +410,7 @@ header p {
   }
 
   .auth-form {
-    width: 90%;           /* форми тягнуться під ширину екрана */
+    width: 90%;           
     max-width: none;
     padding: 20px;
   }
@@ -425,18 +425,18 @@ header p {
 
 .error {
   color: red;
-  font-size: 18px;   /* робимо більший текст */
+  font-size: 18px;   
   font-weight: bold;
   display: block;
-  text-align: center; /* по центру */
+  text-align: center; 
   margin-top: 5px;
 }
 
-/* --- General Auth Errors (наприклад, verify email) --- */
+/* --- General Auth Errors ( verify email) --- */
 .error-general {
-  color: #c0392b;                /* темно-червоний */
-  background: #fdecea;           /* світло-червоний фон */
-  border: 1px solid #e0b4b4;     /* рамка */
+  color: #c0392b;               
+  background: #fdecea;           
+  border: 1px solid #e0b4b4;     
   font-size: 1rem;
   font-weight: bold;
   text-align: center;
@@ -444,7 +444,7 @@ header p {
   margin: 10px auto;
   border-radius: 6px;
   max-width: 320px;
-  display: none;                 /* за замовчуванням сховано */
+  display: none;                
 }
 
 
