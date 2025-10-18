@@ -25,7 +25,7 @@ const postContentErrEl = document.getElementById("post-content-error");
 const postCategoryErrEl = document.getElementById("post-category-error");
 const postGeneralErrEl = document.getElementById("post-error");
 
-let token = "";
+let token = localStorage.getItem("token") || "";
 let editingPostId = null;
 
 // helper: clear error helpers
@@ -182,14 +182,18 @@ if (loginForm) {
       const data = await res.json();
 
       if (res.ok) {
-        // success
-        token = data.token;
-        // persist token locally (optional)
-        try { localStorage.setItem("token", token); } catch (e) {}
-        if (loginGeneralErrEl) loginGeneralErrEl.textContent = "";
-        authSection.style.display = "none";
-        postContainer.style.display = "block";
-        loadPosts();
+      // success
+      token = data.accessToken;
+      try { 
+      localStorage.setItem("token", token); 
+      } catch (e) {
+      console.error("Error saving token:", e);
+      }
+
+      if (loginGeneralErrEl) loginGeneralErrEl.textContent = "";
+      authSection.style.display = "none";
+      postContainer.style.display = "block";
+      loadPosts();
       } else {
         if (res.status === 400 && data.errors) {
           renderFieldErrors(data.errors, "login-");
