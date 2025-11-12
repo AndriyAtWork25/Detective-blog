@@ -5,6 +5,14 @@ This project demonstrates a secure and professional authentication flow, designe
 
 ---
 
+## 🚀 Live Demo
+
+- 🌐 **API Endpoint:** [detective-blog.onrender.com](https://detective-blog.onrender.com)  
+- 📘 **Swagger Docs:** [detective-blog.onrender.com/api-docs](https://detective-blog.onrender.com/api-docs)
+
+
+---
+
 # 🛠 Tech Stack
 
 - **Backend:** Node.js, Express
